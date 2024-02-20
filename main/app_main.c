@@ -10,6 +10,7 @@
 #include "esp_at.h"
 #include "esp_at_init.h"
 #include "esp_blufi_api.h"
+#include <string.h>
 
 void app_main(void)
 {
