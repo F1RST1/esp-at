@@ -22,7 +22,7 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_blufi_register_callbacks(NULL));
 
     const char* to_at_port = "from_github_action";
-    esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
+    // esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
 
 
     esp_at_init();
