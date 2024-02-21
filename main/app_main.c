@@ -11,6 +11,7 @@
 #include "esp_at_init.h"
 #include "esp_blufi_api.h"
 #include <string.h>
+#include <stdio.h>
 
 void app_main(void)
 {
@@ -19,10 +20,36 @@ void app_main(void)
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_at_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    esp_blufi_register_callbacks(NULL);
 
     esp_at_init();
 
+    uint8_t reg_ret = esp_blufi_register_callbacks(example_event_callback);
+
     const char* to_at_port = "from_github_action";
     esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
+    esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
+}
+
+static void  _print_to_at_string(char* str)
+{
+    esp_at_port_write_data((uint8_t*)str, strlen(str));
+}
+
+static void _print_to_at_hex(uint8_t* hex, uint32_t length)
+{
+    // 1 byte hex <--> 2 bytes of string
+    uint32_t expected_size = 2 * length + 1;
+    uint8_t arr[expected_size] = {0};
+    // snprintf(arr, expected_size, "%X", )
+}
+
+static void example_event_callback(esp_blufi_cb_event_t event, esp_blufi_cb_param_t *param)
+{
+    switch (event) {
+    case ESP_BLUFI_EVENT_RECV_CUSTOM_DATA:
+        _print_to_at_string("ESP_BLUFI_EVENT_RECV_CUSTOM_DATA")
+        break;
+    default:
+        break;
+    }
 }
