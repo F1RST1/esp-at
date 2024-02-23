@@ -34,6 +34,7 @@ void app_main(void)
     const char* to_at_port = "from_github_action";
     esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
     esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
+    esp_blufi_send_custom_data_p2e((uint8_t *)to_at_port, strlen(to_at_port));
 }
 
 static void  _print_to_at_string(char* str)
