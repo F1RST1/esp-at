@@ -26,6 +26,10 @@ void app_main(void)
 
     int reg_ret = esp_blufi_register_callbacks(example_event_callback);
 
+    // TODO blufi_api.h
+    // esp_blufi_send_custom_data_p2e
+    // nrf connect <---> esp32_prole(as a phone phone)
+
     const char* to_at_port = "from_github_action";
     esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
     esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
