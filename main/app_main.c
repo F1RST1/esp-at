@@ -27,6 +27,7 @@ void app_main(void)
     esp_at_init();
 
     // int reg_ret = esp_blufi_register_callbacks(example_event_callback);
+    int reg_ret = 0;
 
     // TODO blufi_api.h
     // esp_blufi_send_custom_data_p2e
@@ -34,8 +35,8 @@ void app_main(void)
 
     const char* to_at_port = "from_github_action";
     esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
-    esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
-    esp_blufi_send_custom_data_p2e((uint8_t *)to_at_port, strlen(to_at_port));
+    // esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
+    // esp_blufi_send_custom_data_p2e((uint8_t *)to_at_port, strlen(to_at_port));
     reg_ret = esp_at_ublufi_cmd_regist();
     esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
 }
