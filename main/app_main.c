@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 static void example_event_callback(esp_blufi_cb_event_t event, esp_blufi_cb_param_t *param);
+bool esp_at_ublufi_cmd_regist(void);
 void app_main(void)
 {
     esp_at_main_preprocess();
@@ -25,7 +26,7 @@ void app_main(void)
 
     esp_at_init();
 
-    int reg_ret = esp_blufi_register_callbacks(example_event_callback);
+    // int reg_ret = esp_blufi_register_callbacks(example_event_callback);
 
     // TODO blufi_api.h
     // esp_blufi_send_custom_data_p2e
@@ -35,6 +36,8 @@ void app_main(void)
     esp_at_port_write_data((uint8_t *)to_at_port, strlen(to_at_port));
     esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
     esp_blufi_send_custom_data_p2e((uint8_t *)to_at_port, strlen(to_at_port));
+    reg_ret = esp_at_ublufi_cmd_regist();
+    esp_at_port_write_data((uint8_t *)((reg_ret == -1)? "f" : "s"), strlen("f"));
 }
 
 static void  _print_to_at_string(char* str)
