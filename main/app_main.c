@@ -9,6 +9,7 @@
 
 #include "esp_at.h"
 #include "esp_at_init.h"
+#include "esp_at_core.h"
 #include "esp_blufi_api.h"
 #include <string.h>
 #include <stdio.h>
